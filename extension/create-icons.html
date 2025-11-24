@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Extension Icons</title>
+</head>
+<body>
+  <h1>Icon Generator</h1>
+  <p>Click the button below to download placeholder icons for the extension.</p>
+  <button onclick="createIcons()">Generate Icons</button>
+  <div id="icons"></div>
+
+  <script>
+    function createIcons() {
+      const sizes = [16, 48, 128];
+      const container = document.getElementById('icons');
+      container.innerHTML = '';
+
+      sizes.forEach(size => {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+
+        // Draw gradient background
+        const gradient = ctx.createLinearGradient(0, 0, size, size);
+        gradient.addColorStop(0, '#667eea');
+        gradient.addColorStop(1, '#764ba2');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, size, size);
+
+        // Draw text
+        ctx.fillStyle = 'white';
+        ctx.font = `bold ${size * 0.4}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('SF', size / 2, size / 2);
+
+        // Convert to image and create download link
+        canvas.toBlob(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `icon${size}.png`;
+          a.textContent = `Download icon${size}.png`;
+          a.style.display = 'block';
+          a.style.margin = '10px';
+          container.appendChild(a);
+        });
+
+        // Show preview
+        canvas.style.margin = '10px';
+        canvas.style.border = '1px solid #ccc';
+        container.appendChild(canvas);
+      });
+    }
+  </script>
+</body>
+</html>

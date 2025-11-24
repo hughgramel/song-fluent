@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SongFluent Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 400px;
+      min-height: 500px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 24px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    .section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      opacity: 0.9;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .button-primary {
+      background: white;
+      color: #667eea;
+    }
+
+    .button-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      margin-top: 8px;
+    }
+
+    .button-secondary:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .status-message {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .status-message.success {
+      background: rgba(34, 197, 94, 0.3);
+    }
+
+    .status-message.error {
+      background: rgba(239, 68, 68, 0.3);
+    }
+
+    .link {
+      color: white;
+      text-decoration: underline;
+      font-size: 13px;
+      opacity: 0.9;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .link:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎵 SongFluent</h1>
+    <p>AI-Powered Chinese Subtitles</p>
+  </div>
+
+  <div class="section">
+    <h2>Settings</h2>
+    <div class="input-group">
+      <label for="apiUrl">Backend API URL</label>
+      <input
+        type="text"
+        id="apiUrl"
+        placeholder="http://localhost:3001"
+        value="http://localhost:3001"
+      >
+    </div>
+    <button class="button button-primary" id="saveSettings">Save Settings</button>
+    <div class="status-message" id="statusMessage"></div>
+  </div>
+
+  <div class="section">
+    <h2>Statistics</h2>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-value" id="videoCount">0</div>
+        <div class="stat-label">Videos Processed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="cacheSize">0 MB</div>
+        <div class="stat-label">Cache Size</div>
+      </div>
+    </div>
+    <button class="button button-secondary" id="clearCache">Clear Cache</button>
+  </div>
+
+  <div class="section">
+    <h2>How to Use</h2>
+    <ol style="font-size: 13px; line-height: 1.8; padding-left: 20px; opacity: 0.9;">
+      <li>Navigate to any YouTube video</li>
+      <li>Look for the subtitle button in the player controls</li>
+      <li>Click to generate Chinese subtitles with translation</li>
+      <li>Subtitles will appear automatically as video plays</li>
+    </ol>
+    <a href="https://github.com/hughgramel/song-fluent" target="_blank" class="link">View on GitHub →</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

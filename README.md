@@ -1,16 +1,36 @@
-# MP3 Transcript Sync Player
+# SongFluent
 
-A Next.js application that syncs MP3 audio playback with transcripts, featuring automatic transcription using OpenAI Whisper API.
+AI-powered Chinese subtitle generator with English translation and Pinyin. Available as both a web app and Chrome extension for YouTube.
+
+## Two Modes
+
+### 1. 🌐 Web App (main branch)
+Upload MP3 files and generate synchronized transcripts with translation
+
+### 2. 🎬 Chrome Extension (chrome-extension branch)
+Generate subtitles directly on YouTube videos with one click
 
 ## Features
 
-- Upload MP3 files and play them in the browser
-- Auto-transcribe audio using OpenAI Whisper API
-- Manual transcript input support (with timestamps)
-- Real-time transcript syncing with audio playback
-- Click any transcript line to jump to that timestamp
-- Auto-scroll and highlight current transcript line
-- Beautiful, responsive UI with Tailwind CSS
+### Web App Features
+- 🎵 Upload MP3 files and play them in the browser
+- 🎤 Auto-transcribe audio using OpenAI Whisper API
+- 🌐 Automatic Chinese to English translation with GPT-4o-mini
+- 📝 Pinyin generation with tone marks for language learning
+- ⏱️ Real-time transcript syncing with audio playback
+- 🎯 Click any transcript line to jump to that timestamp
+- 📜 Auto-scroll and highlight current transcript line
+- 💾 Comprehensive console logging for debugging
+- 🎨 Beautiful, responsive UI with Tailwind CSS v4
+
+### Chrome Extension Features (chrome-extension branch)
+- 🎬 One-click subtitle generation on any YouTube video
+- 🎤 Extracts audio directly from YouTube player
+- 🌐 Trilingual display: Chinese, English, Pinyin
+- 💾 Smart caching - instant playback on revisit
+- ⚡ Real-time subtitle synchronization
+- 🎨 Beautiful gradient overlay on video
+- 📊 Statistics tracking in extension popup
 
 ## Setup
 
@@ -43,7 +63,19 @@ OPENAI_API_KEY=sk-your-actual-api-key-here
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3001](http://localhost:3001) in your browser.
+
+## Chrome Extension Setup
+
+Want to use this on YouTube? Check out the Chrome extension:
+
+```bash
+git checkout chrome-extension
+cd extension
+# Follow instructions in extension/README.md
+```
+
+The extension requires the backend API to be running (step 4 above).
 
 ## Usage
 
@@ -80,10 +112,12 @@ Examples:
 
 ## Tech Stack
 
-- **Next.js 14** - React framework
+- **Next.js 16** - React framework with App Router
 - **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **OpenAI Whisper API** - Audio transcription
+- **Tailwind CSS v4** - Modern styling with @import syntax
+- **OpenAI Whisper API** - Speech-to-text transcription
+- **GPT-4o-mini** - Chinese to English translation with Pinyin
+- **Chrome Extension API** - Browser integration (extension branch)
 
 ## Project Structure
 
@@ -91,11 +125,18 @@ Examples:
 song-fluent/
 ├── app/
 │   ├── api/
-│   │   └── transcribe/
-│   │       └── route.ts          # Whisper API endpoint
+│   │   ├── transcribe/
+│   │   │   └── route.ts          # Whisper API endpoint
+│   │   └── translate/
+│   │       └── route.ts          # GPT-4o-mini translation
 │   ├── layout.tsx                # Root layout
 │   ├── page.tsx                  # Main player component
-│   └── globals.css               # Global styles
+│   └── globals.css               # Global styles with animations
+├── extension/                    # Chrome extension (chrome-extension branch)
+│   ├── manifest.json             # Extension config
+│   ├── content.js                # YouTube integration
+│   ├── popup.html                # Settings UI
+│   └── README.md                 # Extension docs
 ├── .env.local                    # Your API key (not in git)
 ├── .env.example                  # Example env file
 └── README.md                     # This file
