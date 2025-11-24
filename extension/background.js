@@ -8,7 +8,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   chrome.storage.local.get(['apiUrl'], (result) => {
     if (!result.apiUrl) {
       chrome.storage.local.set({
-        apiUrl: 'http://localhost:3002'
+        apiUrl: 'http://localhost:3001'
       }, () => {
         console.log('✅ Default settings initialized');
       });
@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   if (request.type === 'GET_API_URL') {
     chrome.storage.local.get(['apiUrl'], (result) => {
-      sendResponse({ apiUrl: result.apiUrl || 'http://localhost:3002' });
+      sendResponse({ apiUrl: result.apiUrl || 'http://localhost:3001' });
     });
     return true; // Keep channel open for async response
   }
