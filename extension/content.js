@@ -1,7 +1,7 @@
 console.log('🎬 SongFluent: Content script loaded on YouTube');
 
 // Configuration
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'http://localhost:3002';
 
 // State
 let currentVideoId = null;
